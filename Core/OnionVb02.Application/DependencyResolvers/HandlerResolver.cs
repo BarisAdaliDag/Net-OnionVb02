@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnionVb02.Application.DependencyResolvers
 {
+    //Todo : Diger entityler icin CQRS
     public static class HandlerResolver
     {
         public static void AddHandlerService(this IServiceCollection services)
@@ -18,6 +19,8 @@ namespace OnionVb02.Application.DependencyResolvers
             services.AddScoped<CreateCategoryCommandHandler>();
             services.AddScoped<UpdateCategoryCommandHandler>();
             services.AddScoped<RemoveCategoryCommandHandler>();
+
+            services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(GetCategoryByIdQueryHandler).Assembly));
         }
     }
 }
