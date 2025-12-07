@@ -9,7 +9,7 @@ namespace OnionVb02.Application.DTOClasses
     public class ProductDto : BaseDto
     {
         public string ProductName { get; set; }
-        public string UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
     }
 }
