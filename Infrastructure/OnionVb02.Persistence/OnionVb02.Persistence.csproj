@@ -19,4 +19,8 @@
     <ProjectReference Include="..\..\Core\OnionVb02.Contract\OnionVb02.Contract.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

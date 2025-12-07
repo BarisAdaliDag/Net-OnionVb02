@@ -7,15 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnionVb02.Application.CqrsAndMediatr.Mediator.Commands.AppUserCommands
+namespace OnionVb02.Application.CqrsAndMediatr.Mediator.Commands.ProductCommands
 {
-    public class RemoveAppUserCommand : BaseCommand<BaseCommandResult>
+    public class UpdateProductCommand : BaseCommand<BaseCommandResult>
     {
         public int Id { get; set; }
-
-        public RemoveAppUserCommand(int id)
-        {
-            Id = id;
-        }
+        public string ProductName { get; set; }
+        public decimal UnitPrice { get; set; }
+        public int? CategoryId { get; set; }
     }
 }
