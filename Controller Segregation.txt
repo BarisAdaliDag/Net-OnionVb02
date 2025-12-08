@@ -1,0 +1,71 @@
+﻿Controller Segregation
+
+
+ CQRS (Command Query Responsibility Segregation)
+ Verı tabanı okuma ve yazma işlemlerini ayıran bir mimaridir.
+ Command: Verı tabanına veri ekleme, guncelleme veya silme işlemlerini temsil eder.
+ Query: Verı tabanından veri okuma işlemlerini temsil eder.
+
+ Her ıkı taraf kendını ıhtıyaclarına groe optımıze edebılır.Test yazımı kolaylasır.
+
+ Thin controller
+ Contollar mumkün olduğunca ince tutmak için busines logıclerı servislerle delege edilmeli.
+ HerController sadece tek sorumlugu olalıdır.
+
+ Temel Kurallar
+Business Logic Controller'da Olmamalı: Tüm iş mantığı service katmanında
+Validation Logic Action Filter'da: Model validation için attribute kullan
+Mapping Logic Ayrı Katmanda: AutoMapper gibi kütüphaneler kullan
+Single Responsibility: Her controller sadece bir sorumluluğa sahip olmalı
+
+kotu ornek
+public class OrdersController : ControllerBase
+{
+    private readonly DbContext _context;
+    
+    [HttpPost]
+    public IActionResult CreateOrder(OrderRequest request)
+    {
+        // Validation logic
+        if (string.IsNullOrEmpty(request.CustomerName))
+            return BadRequest("Name required");
+            
+        // Business logic
+        var order = new Order
+        {
+            CustomerName = request.CustomerName,
+            Total = request.Items.Sum(i => i.Price * i.Quantity),
+            CreatedDate = DateTime.Now
+        };
+        
+        // Data access logic
+        _context.Orders.Add(order);
+        _context.SaveChanges();
+        
+        // Mapping logic
+        var response = new OrderResponse
+        {
+            OrderId = order.Id,
+            CustomerName = order.CustomerName
+        };
+        
+        return Ok(response);
+    }
+}
+iyi ornek
+public class OrdersController : ControllerBase
+{
+    private readonly IMediator _mediator;
+    
+    public OrdersController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+    
+    [HttpPost]
+    [ValidateModelState] // Action filter ile validation
+    public async Task<IActionResult> CreateOrder(CreateOrderCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
