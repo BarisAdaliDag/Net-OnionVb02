@@ -19,6 +19,10 @@ namespace OnionVb02.Application.MappingProfiles
             CreateMap<ProductDto, Product>().ReverseMap();
             CreateMap<OrderDto, Order>().ReverseMap();
             CreateMap<OrderDetailDto, OrderDetail>().ReverseMap();
+
+            CreateMap<ProductAttributeDto, ProductAttribute>().ReverseMap();
+            CreateMap<ProductAttributeValueDto, ProductAttributeValue>().ReverseMap();
+            CreateMap<ProductWithAttributesDto, Product>().ReverseMap();
         }
     }
 }

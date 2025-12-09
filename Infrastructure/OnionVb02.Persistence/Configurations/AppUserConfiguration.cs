@@ -15,9 +15,7 @@ namespace OnionVb02.Persistence.Configurations
             base.Configure(builder);
             builder.HasOne(x => x.AppUserProfile).WithOne(x => x.AppUser).HasForeignKey<AppUserProfile>(x => x.AppUserId); //Burada endişelenmeyin bu noktada HasOne ve WithOne metotları kullanıldıgı icin Foreign Key olsa bile otomatik birebir ve unique bir ilişki kurulacak...Ve aynı zamanda Id management serbestligi de kazanacaksınız...
 
-            //AppUser                       //Profile
-            //1  - winterex                1 - Cagri Yolyapar AppUserId(1)
-            //2  - xc12                    2 - Assd asd AppUser(1) engellenir
+        
         }
     }
 }

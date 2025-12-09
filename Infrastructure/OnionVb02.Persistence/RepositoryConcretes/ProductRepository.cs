@@ -11,5 +11,7 @@ namespace OnionVb02.Persistence.RepositoryConcretes
 {
     public class ProductRepository(MyContext context) : BaseRepository<Product>(context),IProductRepository
     {
+
+
     }
 }
