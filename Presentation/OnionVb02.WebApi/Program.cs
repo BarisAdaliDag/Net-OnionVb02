@@ -1,8 +1,9 @@
 using OnionVb02.Application.DependencyResolvers;
+using OnionVb02.Application.DependencyResolvers;
 using OnionVb02.InnerInfrastructure.DependencyResolvers;
 using OnionVb02.Persistence.DependencyResolvers;
 using OnionVb02.WebApi.DependencyResolvers;
-using OnionVb02.Application.DependencyResolvers;
+using System.Text.Json.Serialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,13 @@ builder.Services.AddManagerService();
 builder.Services.AddRepositoryService();
 builder.Services.AddVmMapperService();
 builder.Services.AddHandlerService();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
 
 var app = builder.Build();
 

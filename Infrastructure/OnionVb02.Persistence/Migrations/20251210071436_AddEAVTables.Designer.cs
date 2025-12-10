@@ -12,7 +12,7 @@ using OnionVb02.Persistence.ContextClasses;
 namespace OnionVb02.Persistence.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20251209204545_AddEAVTables")]
+    [Migration("20251210071436_AddEAVTables")]
     partial class AddEAVTables
     {
         /// <inheritdoc />

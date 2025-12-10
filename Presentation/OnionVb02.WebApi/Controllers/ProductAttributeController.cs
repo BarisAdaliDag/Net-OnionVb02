@@ -5,6 +5,7 @@ using OnionVb02.Application.DTOClasses;
 using OnionVb02.Contract.RepositoryInterfaces;
 using OnionVb02.Domain.Entities;
 using OnionVb02.Domain.Enums;
+using OnionVb02.WebApi.RequestModels.ProductAttribute;
 
 namespace OnionVb02.WebApi.Controllers
 {
@@ -23,6 +24,7 @@ namespace OnionVb02.WebApi.Controllers
             _mapper = mapper;
         }
 
+     
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -31,6 +33,7 @@ namespace OnionVb02.WebApi.Controllers
             return Ok(dtos);
         }
 
+      
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -42,6 +45,7 @@ namespace OnionVb02.WebApi.Controllers
             return Ok(dto);
         }
 
+        
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductAttributeRequest request)
         {
@@ -64,6 +68,7 @@ namespace OnionVb02.WebApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = attribute.Id }, dto);
         }
 
+       
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateProductAttributeRequest request)
         {
@@ -71,7 +76,7 @@ namespace OnionVb02.WebApi.Controllers
             if (oldAttribute == null || oldAttribute.Status == DataStatus.Deleted)
                 return NotFound();
 
-            var newAttribute = oldAttribute; 
+            var newAttribute = oldAttribute;
             newAttribute.Description = request.Description;
             newAttribute.UpdatedDate = DateTime.Now;
             newAttribute.Status = DataStatus.Updated;
@@ -80,6 +85,7 @@ namespace OnionVb02.WebApi.Controllers
             return NoContent();
         }
 
+       
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -92,15 +98,7 @@ namespace OnionVb02.WebApi.Controllers
         }
     }
 
-    public class CreateProductAttributeRequest
-    {
-        public string AttributeName { get; set; }
-        public string AttributeType { get; set; }
-        public string? Description { get; set; }
-    }
+   
 
-    public class UpdateProductAttributeRequest
-    {
-        public string? Description { get; set; }
-    }
+  
 }
