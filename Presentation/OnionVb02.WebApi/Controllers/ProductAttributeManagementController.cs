@@ -99,7 +99,7 @@ namespace OnionVb02.WebApi.Controllers
 
             await _attributeValueRepo.CreateAsync(attributeValue);
 
-            // DTO'ya çevir - ✅ DÜZELTME
+            // DTO'ya çevir
             var dto = new ProductAttributeValueDto
             {
                 Id = attributeValue.Id,
